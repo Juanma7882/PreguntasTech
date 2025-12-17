@@ -1,0 +1,10 @@
+.env
+./backend-Preguntas/.env
+./Frontend-preguntas/.env
+./database/.env
+./Frontend-preguntas/node_modules
+./backend-Preguntas/node_modules
+./Frontend-preguntas/node_modules/*
+./backend-Preguntas/node_modules/*
+./Frontend-preguntas/package-lock.json
+./backend-Preguntas/package-lock.json
