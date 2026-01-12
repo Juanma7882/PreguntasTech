@@ -1,18 +1,39 @@
+import { useEffect, useState } from "react";
+import { obtenerEtiquetas, type Etiqueta } from "../api/apis";
 
-interface TarjetaProp {
-    nombre: string;
-    imagen: string;
-}
+export default function Tarjeta() {
+    const [etiquetas, setEtiquetas] = useState<Etiqueta[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
-export default function Tarjeta({ nombre, imagen }: TarjetaProp) {
+    useEffect(() => {
+        const cargarEtiquetas = async () => {
+            try {
+                const data = await obtenerEtiquetas();
+                setEtiquetas(data);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error al obtener las etiquetas:", error);
+                setLoading(false);
+            }
+        };
+        cargarEtiquetas();
+    }, []);
+    if (loading === true) {
+        return <div>Cargando...</div>;
+    }
     return (
         <>
-            <div className='flex flex-col justify-center items-center bg-gray-900/50 w-50 h-60 rounded-2xl border border-gray-700 hover:border-gray-600 cursor-pointer'>
-                <div className='w-40'>
-                    <img className='w-full h-full' src={imagen} alt={nombre} />
+            {etiquetas.map((etiqueta) => (
+
+                <div key={etiqueta.id}
+                    className='flex flex-col justify-center items-center bg-gray-900/50 w-50 h-60 rounded-2xl border border-gray-700 hover:border-gray-600 cursor-pointer'>
+                    <div className='w-40'>
+                        < img className='w-full h-full' src={etiqueta.url} alt={etiqueta.nombre} />
+                    </div>
+
+                    <h2 className='text-white text-4xl'>{etiqueta.nombre}</h2>
                 </div>
-                <h2 className='text-white text-4xl'>{nombre}</h2>
-            </div>
+            ))}
 
         </>
     )

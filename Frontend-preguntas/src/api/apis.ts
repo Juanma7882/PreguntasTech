@@ -1,5 +1,5 @@
 const ESTATIC = {
-  API_BASE_URL: import.meta.env.VITE_API_BASE_URL 
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL
 };
 
 const API_URLS = {
@@ -27,6 +27,7 @@ async function consumirApi<T>(url: string): Promise<T> {
 export interface Etiqueta {
   id: number;
   nombre: string;
+  url: string;
 }
 
 export interface Pregunta {
@@ -36,12 +37,23 @@ export interface Pregunta {
   etiquetas?: Etiqueta[];
 }
 
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  count: number;
+  data: T;
+  error: string | null;
+}
+
 // =======================
 // Funciones de API
 // =======================
 async function obtenerEtiquetas(): Promise<Etiqueta[]> {
   try {
-    return await consumirApi<Etiqueta[]>(API_URLS.etiquetas);
+    const ApiResponse = await consumirApi<ApiResponse<Etiqueta[]>>(API_URLS.etiquetas);
+    console.log(ApiResponse)
+    return ApiResponse.data;
   } catch (error) {
     console.error("Error al obtener etiquetas", error);
     throw error;
@@ -59,7 +71,9 @@ async function obtenerPreguntas(): Promise<Pregunta[]> {
 
 async function obtenerEtiquetaConPregunta(): Promise<Pregunta[]> {
   try {
-    return await consumirApi<Pregunta[]>(API_URLS.etiquetaPreguntas);
+    const rsp = await consumirApi<Pregunta[]>(API_URLS.etiquetaPreguntas);
+    console.log(rsp);
+    return rsp;
   } catch (error) {
     console.error("Error al obtener etiquetas con preguntas", error);
     throw error;
