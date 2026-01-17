@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { obtenerEtiquetas, type Etiqueta } from "../api/apis";
+import { useNavigate } from "react-router-dom";
 
-export default function Tarjeta() {
+
+export default function Tarjeta({ filtro }: { filtro: string }) {
     const [etiquetas, setEtiquetas] = useState<Etiqueta[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const cargarEtiquetas = async () => {
@@ -21,17 +24,22 @@ export default function Tarjeta() {
     if (loading === true) {
         return <div>Cargando...</div>;
     }
+    const etiquetasFiltradas = etiquetas.filter((etiqueta) =>
+        etiqueta.nombre.toLowerCase().includes(filtro.toLowerCase())
+    );
+
     return (
         <>
-            {etiquetas.map((etiqueta) => (
+            {etiquetasFiltradas.map((etiqueta) => (
 
-                <div key={etiqueta.id}
-                    className='flex flex-col justify-center items-center bg-gray-900/50 w-50 h-60 rounded-2xl border border-gray-700 hover:border-gray-600 cursor-pointer'>
+                <div onClick={() => navigate(`/etiqueta/${etiqueta.nombre}`)}
+                    key={etiqueta.id}
+                    className='flex flex-col justify-center items-center text-center bg-gray-900/50 w-55 h-70 rounded-2xl border border-gray-700 hover:border-gray-600 cursor-pointer'>
                     <div className='w-40'>
                         < img className='w-full h-full' src={etiqueta.url} alt={etiqueta.nombre} />
                     </div>
 
-                    <h2 className='text-white text-4xl'>{etiqueta.nombre}</h2>
+                    <h2 className='text-white text-3xl'>{etiqueta.nombre}</h2>
                 </div>
             ))}
 

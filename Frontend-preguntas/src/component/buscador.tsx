@@ -1,11 +1,19 @@
 
-export default function Buscador() {
-    
+
+interface BuscadorProps {
+    buscar: string
+    setBuscar: (value: string) => void
+}
+export default function Buscador({ buscar, setBuscar }: BuscadorProps) {
+
+
     return (
         <div className="relative w-full max-w-md">
             <input
                 type="search"
                 placeholder="Buscar..."
+                value={buscar}
+                onChange={(e) => setBuscar(e.target.value)}
                 className="
       w-full
       pl-10 pr-4 py-2
@@ -14,8 +22,8 @@ export default function Buscador() {
       placeholder-zinc-400
       border border-zinc-700
       focus:outline-none
-      focus:ring-2 focus:ring-blue-500
-      focus:border-blue-500
+      focus:ring-2 focus:ring-gray-200
+      focus:border-gray-500
       transition
     "
             />

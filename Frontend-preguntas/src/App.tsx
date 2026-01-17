@@ -1,14 +1,17 @@
-import Buscador from './component/buscador'
-import Tarjeta from './component/Tarjeta'
-import './style/index.css'
+import { Routes, Route } from 'react-router-dom'
+import './style/index.css';
+import PreguntasEtiqueta from './pages/PreguntasEtiqueta';
+import Home from './pages/home';
 
 function App() {
 
   return (
-    <div className='bg-black w-full h-dvh flex justify-center items-center gap-3 flex-col'>
+    <div className='bg-black w-full min-h-screen flex justify-center items-center gap-3 flex-col p-10'>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/etiqueta/:nombre' element={<PreguntasEtiqueta />} />
+      </Routes>
 
-      <Buscador></Buscador>
-      <Tarjeta />
     </div>
   )
 }
