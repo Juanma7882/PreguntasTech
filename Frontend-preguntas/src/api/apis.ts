@@ -69,11 +69,12 @@ async function obtenerPreguntas(): Promise<Pregunta[]> {
   }
 }
 
-async function obtenerEtiquetaConPregunta(): Promise<Pregunta[]> {
+async function obtenerEtiquetaConPregunta(etiqueta: string): Promise<Pregunta[]> {
   try {
-    const rsp = await consumirApi<Pregunta[]>(API_URLS.etiquetaPreguntas);
+    const API_ = `${API_URLS.etiquetaPreguntas}/${etiqueta}`;
+    const rsp = await consumirApi<ApiResponse<Pregunta[]>>(API_);
     console.log(rsp);
-    return rsp;
+    return rsp.data;
   } catch (error) {
     console.error("Error al obtener etiquetas con preguntas", error);
     throw error;
