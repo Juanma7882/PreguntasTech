@@ -13,7 +13,7 @@ function App() {
             <div className='w-full flex justify-center items-center mt-5 pt-32 pb-32'>
                 <Buscador buscar={buscar} setBuscar={setBuscar} />
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 <Tarjeta filtro={buscarDebounced} />
             </div>
         </div>

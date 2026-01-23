@@ -6,7 +6,7 @@ import Home from './pages/home';
 function App() {
 
   return (
-    <div className='bg-black w-full min-h-screen flex justify-center items-center gap-3 flex-col p-10'>
+    <div className='bg-black w-full min-h-screen flex justify-center items-center gap-3 flex-col  '>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/etiqueta/:nombre' element={<PreguntasEtiqueta />} />
